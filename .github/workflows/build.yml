@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+permissions:
+  contents: write
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -33,8 +35,8 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install puppeteer
-	run: |
-	  npm install puppeteer --save-dev
+        run: |
+          npm install puppeteer --save-dev
       - name: Install Dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: |
@@ -47,7 +49,7 @@ jobs:
           npm run lint
       - name: Test
         run: |
-          npm run test --watch=false --browsers=ChromeHeadlessCustom"
+          npm run test --watch=false --browsers=ChromeHeadlessCustom
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
